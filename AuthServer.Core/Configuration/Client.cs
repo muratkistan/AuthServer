@@ -12,6 +12,6 @@ namespace AuthServer.Core.Configuration
 
         public string Secret { get; set; }
 
-        public List<String> Audiences { get; set; }
+        public List<string> Audiences { get; set; }
     }
 }
