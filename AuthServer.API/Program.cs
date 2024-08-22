@@ -29,6 +29,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         o.MigrationsAssembly("AuthServer.Data");
     });
 });
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 builder.Services.AddIdentity<UserApp, IdentityRole>(opt =>
 {
