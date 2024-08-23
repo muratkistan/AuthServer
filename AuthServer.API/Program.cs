@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using SharedLibrary.Services;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using SharedLibrary.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,6 +74,17 @@ builder.Services.AddAuthentication(opt =>
 });
 
 builder.Services.AddControllers();
+
+#region FluentValidation
+
+builder.Services.AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+
+builder.Services.UseCustomValidationResponse();
+
+#endregion FluentValidation
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
