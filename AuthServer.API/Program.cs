@@ -11,6 +11,7 @@ using AuthServer.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using SharedLibrary.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

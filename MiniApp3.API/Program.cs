@@ -1,5 +1,11 @@
-var builder = WebApplication.CreateBuilder(args);
+using SharedLibrary.Configurations;
+using SharedLibrary.Extensions;
 
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.Configure<CustomTokenOption>(builder.Configuration.GetSection("TokenOption"));
+var tokenOptions = builder.Configuration.GetSection("TokenOption").Get<CustomTokenOption>();
+
+builder.Services.AddCustomTokenAuth(tokenOptions);
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -16,6 +22,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
