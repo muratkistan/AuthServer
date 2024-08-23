@@ -2,6 +2,7 @@
 using AuthServer.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedLibrary.Exceptions;
 
 namespace AuthServer.API.Controllers
 {
@@ -19,6 +20,8 @@ namespace AuthServer.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUser(CreateUserDto createUserDto)
         {
+            //throw new CustomException("Bir hata meydana geldi");
+
             return ActionResultInstance(await _userService.CreateUserAsync(createUserDto));
         }
 
