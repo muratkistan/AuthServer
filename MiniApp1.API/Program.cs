@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using SharedLibrary.Configurations;
 using SharedLibrary.Extensions;
 
@@ -7,6 +8,20 @@ builder.Services.Configure<CustomTokenOption>(builder.Configuration.GetSection("
 var tokenOptions = builder.Configuration.GetSection("TokenOption").Get<CustomTokenOption>();
 
 builder.Services.AddCustomTokenAuth(tokenOptions);
+
+//builder.Services.AddSingleton<IAuthorizationHandler, BirthDayRequirementHandler>();
+builder.Services.AddAuthorization(opts =>
+{
+    opts.AddPolicy("AnkaraPolicy", policy =>
+    {
+        policy.RequireClaim("city", "Istanbul");
+    });
+
+    //opts.AddPolicy("AgePolicy", policy =>
+    //{
+    //    policy.Requirements.Add(new BirthDayRequirement(18));
+    //});
+});
 
 // Add services to the container.
 
