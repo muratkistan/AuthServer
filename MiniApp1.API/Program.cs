@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using MiniApp1.API.Requirements;
 using SharedLibrary.Configurations;
 using SharedLibrary.Extensions;
 
@@ -9,18 +10,18 @@ var tokenOptions = builder.Configuration.GetSection("TokenOption").Get<CustomTok
 
 builder.Services.AddCustomTokenAuth(tokenOptions);
 
-//builder.Services.AddSingleton<IAuthorizationHandler, BirthDayRequirementHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, BirthDayRequirementHandler>();
 builder.Services.AddAuthorization(opts =>
 {
     opts.AddPolicy("AnkaraPolicy", policy =>
     {
-        policy.RequireClaim("city", "Istanbul");
+        policy.RequireClaim("city", "Ankara");
     });
 
-    //opts.AddPolicy("AgePolicy", policy =>
-    //{
-    //    policy.Requirements.Add(new BirthDayRequirement(18));
-    //});
+    opts.AddPolicy("AgePolicy", policy =>
+    {
+        policy.Requirements.Add(new BirthDayRequirement(18));
+    });
 });
 
 // Add services to the container.
